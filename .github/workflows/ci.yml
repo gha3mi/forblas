@@ -56,12 +56,12 @@ jobs:
     - name: Run tests
       run: fpm test
 
-    - name: Build documentation
-      run: ford ./ford.yml
+    # - name: Build documentation
+    #   run: ford ./ford.yml
 
-    - name: Deploy Documentation
-      if: github.ref == 'refs/heads/master'
-      uses: JamesIves/github-pages-deploy-action@v4.4.1
-      with:
-        branch: gh-pages
-        folder: doc
+    # - name: Deploy Documentation
+    #   if: github.ref == 'refs/heads/master'
+    #   uses: JamesIves/github-pages-deploy-action@v4.4.1
+    #   with:
+    #     branch: gh-pages
+    #     folder: doc
