@@ -21,6 +21,5 @@ jobs:
     - name: Update BLAS
       run: |
         git submodule update --recursive --remote
-        git add .
-        git diff-index --quiet HEAD || git commit -m "Update BLAS"
+        git add src && git commit -m "Update BLAS"
         git push origin main
