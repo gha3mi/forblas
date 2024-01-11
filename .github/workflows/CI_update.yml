@@ -22,9 +22,23 @@ jobs:
         git config user.email "${{ secrets.GIT_USER_EMAIL }}"
         git config user.name "${{ secrets.GIT_USER_NAME }}"
 
+    - name: Create and Checkout a New Branch
+      run: |
+        git checkout -b update_submodule
+      continue-on-error: true
+
     - name: Update BLAS
       run: |
         git submodule update --recursive --remote
         git status
         git add src && git commit -m "Update BLAS"
-        git push origin main
+        git push origin update_submodule
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5.0.2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: update_submodule
+        title: "Update BLAS"
+        body: "Automated update of BLAS"
+        base: main
