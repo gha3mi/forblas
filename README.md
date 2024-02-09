@@ -1,39 +1,48 @@
-# ForBLAS
+[![GitHub](https://img.shields.io/badge/GitHub-forblas-blue.svg?style=social&logo=github)](https://github.com/gha3mi/forblas)
+[![License](https://img.shields.io/github/license/gha3mi/forblas?color=green)](https://github.com/gha3mi/forblas/blob/main/LICENSE)
 
-![ForBLAS](media/logo.png)
+**ForBLAS** simplifies the compilation of the latest [BLAS](https://github.com/Reference-LAPACK/lapack) library using the Fortran Package Manager (fpm).
 
-## How to Use ForBLAS
+<!-- ![ForBLAS](media/logo.png) -->
 
-### Installation of ForBLAS Library
+## Install Instructions
 
-To use ForBLAS, follow the steps below:
+### 1. Prerequisites:
 
-- **Reuirements:**
+Ensure you have a Fortran compiler installed on your system.
 
-  Fortran Compiler
+### 2. Clone the Repository:
 
-- **Clone the repository:**
+Clone the ForBLAS repository from GitHub, including submodules:
 
-   You can clone the ForBLAS repository from GitHub using the following command:
+```shell
+git clone --recurse-submodules https://github.com/gha3mi/forblas.git
+cd forblas
+git submodule update --init --recursive
+```
 
-   ```shell
-   git clone --recurse-submodules https://github.com/gha3mi/forblas.git
-   ```
+### 3. Install BLAS Using fpm:
 
-   ```shell
-   cd forblas
-   ```
+Install ForBLAS using [fpm](https://github.com/fortran-lang/fpm):
 
-- **Build using the Fortran Package Manager (fpm):**
+```shell
+fpm install --profile release --prefix .
+```
 
-   ForBLAS can be built using [fpm](https://github.com/fortran-lang/fpm).
-   Make sure you have fpm installed, and then execute the following command:
+The compiled library will be located in the `lib` directory.
 
-  **GNU Fortran Compiler (gfortran)**
+Adjust installation directory, compiler, and flags as needed:
 
-   ```shell
-   fpm install --prefix . --compiler gfortran --flag "-O3 -frecursive"
-   ```
+- Use `--prefix <dir>` to set the installation directory.
+- Use `--compiler <compiler>` to specify your Fortran compiler.
+- Use `--flag '<flags>'` to customize compiler flags.
+
+## Integrating BLAS in Your fpm Package
+
+- Install and ForBLAS.
+- Copy `libforblas.a` from the `lib` directory of ForBLAS to your fpm package's `lib` directory.
+- Add `link = ["forblas"]` to your `fpm.toml` file.
+- When using fpm, include `--flag '-Llib'` to specify the library directory.
 
 ## Running Tests
 
@@ -192,6 +201,4 @@ To use ForBLAS, follow the steps below:
 
 ## Contributing
 
-Contributions to `ForBLAS` are welcome!
-If you find any issues or would like to suggest improvements,
-please open an issue or submit a pull request.
+Contributions to `ForBLAS` are welcome! If you find any issues or would like to suggest improvements, please open an issue or submit a pull request.
